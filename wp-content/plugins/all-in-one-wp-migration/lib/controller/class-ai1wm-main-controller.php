@@ -795,7 +795,7 @@ class Ai1wm_Main_Controller {
 					'Your file exceeds the maximum upload size for this site: <strong>%s</strong><br />%s%s',
 					AI1WM_PLUGIN_NAME
 				),
-				esc_html( size_format( wp_max_upload_size() ) ),
+				esc_html( ai1wm_size_format( wp_max_upload_size() ) ),
 				__(
 					'<a href="https://help.servmask.com/2018/10/27/how-to-increase-maximum-upload-file-size-in-wordpress/" target="_blank">How-to: Increase maximum upload file size</a> or ',
 					AI1WM_PLUGIN_NAME
@@ -894,9 +894,13 @@ class Ai1wm_Main_Controller {
 
 		wp_localize_script( 'ai1wm_backups', 'ai1wm_backups', array(
 			'ajax'       => array(
-				'url'              => wp_make_link_relative( admin_url( 'admin-ajax.php?action=ai1wm_backups' ) ),
-				'add_backup_label' => wp_make_link_relative( admin_url( 'admin-ajax.php?action=ai1wm_add_backup_label' ) ),
-				'backup_list'      => wp_make_link_relative( admin_url( 'admin-ajax.php?action=ai1wm_backup_list' ) ),
+				'url' => wp_make_link_relative( admin_url( 'admin-ajax.php?action=ai1wm_backups' ) ),
+			),
+			'backups'    => array(
+				'url' => wp_make_link_relative( admin_url( 'admin-ajax.php?action=ai1wm_backup_list' ) ),
+			),
+			'labels'     => array(
+				'url' => wp_make_link_relative( admin_url( 'admin-ajax.php?action=ai1wm_add_backup_label' ) ),
 			),
 			'secret_key' => get_option( AI1WM_SECRET_KEY ),
 		) );
@@ -932,10 +936,6 @@ class Ai1wm_Main_Controller {
 			'want_to_delete_this_file'            => __( 'Are you sure you want to delete this file?', AI1WM_PLUGIN_NAME ),
 			'unlimited'                           => __( 'Restoring a backup is available via Unlimited extension. <a href="https://servmask.com/products/unlimited-extension" target="_blank">Get it here</a>', AI1WM_PLUGIN_NAME ),
 			'restore_from_file'                   => __( '"Restore" functionality is available in a <a href="https://servmask.com/products/unlimited-extension" target="_blank">paid extension</a>.<br />You could also download the backup and then use "Import from file".', AI1WM_PLUGIN_NAME ),
-			'unable_to_add_backup_label'          => __( 'Unable to add label for backup because: ', AI1WM_PLUGIN_NAME ),
-			'click_to_set_backup_label'           => __( 'Click to set a label for this backup', AI1WM_PLUGIN_NAME ),
-			'unable_to_refresh_backups_list'      => __( 'Unable to refresh backups list because: ', AI1WM_PLUGIN_NAME ),
-			'refresh_backup_list'                 => __( 'Refreshing backup list...', AI1WM_PLUGIN_NAME ),
 		) );
 	}
 
@@ -970,7 +970,7 @@ class Ai1wm_Main_Controller {
 
 		wp_localize_script( 'ai1wm_updater', 'ai1wm_updater', array(
 			'ajax' => array(
-				'url' => wp_make_link_relative( admin_url( 'admin-ajax.php?action=ai1wm_updater' ) ),
+				'url' => wp_make_link_relative( add_query_arg( array( 'ai1wm_nonce' => wp_create_nonce( 'ai1wm_updater' ) ), admin_url( 'admin-ajax.php?action=ai1wm_updater' ) ) ),
 			),
 		) );
 
@@ -1012,9 +1012,11 @@ class Ai1wm_Main_Controller {
 		}
 
 		// Check for updates
-		if ( isset( $_GET['ai1wm_updater'] ) ) {
-			if ( current_user_can( 'update_plugins' ) ) {
-				Ai1wm_Updater::check_for_updates();
+		if ( isset( $_GET['ai1wm_check_for_updates'] ) ) {
+			if ( check_admin_referer( 'ai1wm_check_for_updates', 'ai1wm_nonce' ) ) {
+				if ( current_user_can( 'update_plugins' ) ) {
+					Ai1wm_Updater::check_for_updates();
+				}
 			}
 		}
 	}
@@ -1032,6 +1034,8 @@ class Ai1wm_Main_Controller {
 		add_action( 'wp_ajax_nopriv_ai1wm_backups', 'Ai1wm_Backups_Controller::delete' );
 		add_action( 'wp_ajax_nopriv_ai1wm_feedback', 'Ai1wm_Feedback_Controller::feedback' );
 		add_action( 'wp_ajax_nopriv_ai1wm_report', 'Ai1wm_Report_Controller::report' );
+		add_action( 'wp_ajax_nopriv_ai1wm_add_backup_label', 'Ai1wm_Backups_Controller::add_label' );
+		add_action( 'wp_ajax_nopriv_ai1wm_backup_list', 'Ai1wm_Backups_Controller::backup_list' );
 
 		// Private actions
 		add_action( 'wp_ajax_ai1wm_export', 'Ai1wm_Export_Controller::export' );
