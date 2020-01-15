@@ -60,7 +60,7 @@
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 
-		gtag('config', 'UA-141209549-1');
+		gtag('config', 'UA-141209549-1', { 'optimize_id': 'GTM-K5RFQQ5'} );
 		</script>
 	</header><!-- #masthead -->
 
