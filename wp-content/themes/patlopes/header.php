@@ -16,7 +16,15 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141209549-1"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
 
+	gtag('config', 'UA-141209549-1', { 'optimize_id': 'GTM-PL8D5LZ'});
+	</script>
 	<?php wp_head(); ?>
 </head>
 
@@ -53,15 +61,6 @@
 			) );
 			?>
 		</nav><!-- #site-navigation -->
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141209549-1"></script>
-		<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-141209549-1', { 'optimize_id': 'GTM-K5RFQQ5'} );
-		</script>
 	</header><!-- #masthead -->
 
 	<div id="content" class="site-content">
