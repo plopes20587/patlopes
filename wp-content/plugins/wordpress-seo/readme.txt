@@ -5,8 +5,8 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: SEO, XML sitemap, Content analysis, Readability
 Requires at least: 5.2
-Tested up to: 5.3
-Stable tag: 12.5
+Tested up to: 5.3.2
+Stable tag: 13.1
 Requires PHP: 5.6.20
 
 Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the Yoast SEO plugin.
@@ -209,39 +209,36 @@ Your question has most likely been answered on our knowledge base: [kb.yoast.com
 
 == Changelog ==
 
-= 12.5.0 =
-Release Date: November 13th, 2019
+= 13.1 =
+Release Date: February 18th, 2020
 
-These last couple of months here at Yoast SEO HQ have all been about building better things. Behind the scenes, we’re making good progress at getting our flagship plugins ready for the future. While we’re busy building the future, we also stick to our regular two-week release schedule, which means it’s time to introduce Yoast SEO 12.5. Find out more in [our 12.5 release post](https://yoa.st/release-12-5)!
+Yoast SEO 13.1 is out today! In this plugin, you’ll find several fixes and enhancements, mostly focused at improving our Schema.org structured data implementation. Learn more about the latest versions of Yoast SEO in [our 13.1 release post](https://yoa.st/release-13-1)!
 
 Bugfixes:
 
-* Fixes a bug for terms where keywords and snippet preview data would be synced across all languages in a MultilingualPress multisite environment.
-* Fixes a bug where the visually hidden text in the snippet preview was misplaced.
-
-Other:
-
-* Deprecates the Google Search Console.
-
-= 12.4.0 =
-Release Date: October 29th, 2019
-
-After releasing several updates to our snippet preview in previous releases, Yoast SEO 12.4 now shows an image for your post in the mobile snippet preview, just like Google would. We have several other improvements and fixes for you in store with Yoast SEO 12.4. Find out more in [our 12.4 release post](https://yoa.st/release-12-4)!
+* Fixes a bug where the HowTo schema name was incorrectly set to the page title.
+* Fixes a bug where the "force rewrite titles" option would remove the title tag in svg tags. Props to [stodorovic](https://github.com/stodorovic)
 
 Enhancements:
 
-* Adds "schema" as keyword to the structured data blocks to make them show up for that search term in the block search as well.
-* Adds an image to the mobile snippet preview for posts and terms.
-* Changes the readability score for empty content from "Needs Improvement" with a red icon to "Not Available" with a gray icon. Props to [emilyatmobtown](https://github.com/emilyatmobtown).
-* Updates the URLs used to ping Google and Bing about the location of a sitemap. Props to [@emilyatmobtown](https://github.com/emilyatmobtown).
-* Makes the notice about running an old WordPress version more specific by showing the installed WordPress version and the latest WordPress version.
-* Adds information about enabling Open Graph to the Twitter settings. Props to [@stevenfranks](https://github.com/stevenfranks).
+* Sets the Schema HowTo name and Article headline to the post title with a fallback to "No title".
+* Adds the `inLanguage` property to the schema CreativeWork pieces.
+* Removes a duplicate directory from the composer autoload classmap configuration. Props to [szepeviktor](https://github.com/szepeviktor)
+* Improves the copy for the paginated comments Site Health check.
 
-Bugfixes:
+Other:
 
-* Fixes a bug where no Twitter and Facebook image could be set for attachment pages.
-* Fixes a bug where a nested paragraph would be present in the "noindex" metabox warning.
-* Fixes a bug where Google+ data would still be exported in the settings export.
+* Removes the Search Console item from the admin menu and the toolbar menu.
+
+= 13.0 =
+Release Date: February 4th, 2020
+
+Today, we’re releasing Yoast SEO 13.0. This release is one in a series of releases focusing on improving our code and fixing issues — most of them behind the scenes. Read more about those changes in [our 13.0 release post](https://yoa.st/release-13-0)!
+
+Enhancements:
+
+* Hides the Facebook settings when Open Graph is disabled.
+* Adds a success state to the paginated comments Health Check. This means the paginated comments check will also be shown when the paginated comments are set up correctly.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/yoast-seo-changelog).
